@@ -4,12 +4,12 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import styles from './style/style'
 
-export default class App extends React.component {
+export default class App extends React.Component {
   constructor(props){
     super(props)
   }
 
-  render(){
+  render() {
     return (
       <View style={styles.container}>
         <Header />
@@ -18,12 +18,3 @@ export default class App extends React.component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
