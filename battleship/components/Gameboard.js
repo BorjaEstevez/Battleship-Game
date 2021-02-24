@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Text, View, Pressable } from 'react-native';
 import Entypo from "@expo/vector-icons/Entypo"
 import styles from '../style/style'
@@ -56,6 +56,15 @@ export default class Gameboard extends React.Component{
         }
       }
 
+
+
+      upTimer(){
+          this.interval = setInterval(() => {
+            this.setState({time: this.state.time + 1})
+          }, 1000);
+     
+        }
+            
       chooseItemColor = (number) => {
         if(board[number]=="cross")
           return "#FF3031"
@@ -88,6 +97,7 @@ export default class Gameboard extends React.Component{
     }
 
     resetGame(){
+        this.upTimer();
         this.setState({
             isCross: true,
             winner: ''})
