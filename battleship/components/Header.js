@@ -7,7 +7,7 @@ export default class Header extends Component {
         return (
             <View style={styles.header}>
                 <Text style={styles.title}>
-                    Tic Tac Toe
+                    Battleship
                 </Text>
             </View>
         )
