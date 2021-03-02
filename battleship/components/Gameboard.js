@@ -23,7 +23,8 @@ export default class Gameboard extends React.Component{
             ships:3,
             status: "game has not started",
             button:"Start game",
-            time:0
+            time:0,
+            positions:null
         }
         this.initializeBoard();
     }
@@ -57,12 +58,51 @@ export default class Gameboard extends React.Component{
       }
 
 
+      createBoats(){
+          for(let i = 0; i<3;i++){
+              let r = Math.floor(Math.random()* 24 + 0);
+              this.state.positions.push(r);
+          }
+
+      }
 
       upTimer(){
           this.interval = setInterval(() => {
             this.setState({time: this.state.time + 1})
           }, 1000);
+
+          if(this.state.time === 30){
+
+          }
      
+        }
+
+        lost(){
+            this.setState({
+                status:"Ships remaining"
+
+            })
+        }
+
+        won(){
+            this.setState({
+                status:"You sinked all ships"
+            })
+        }
+
+        start(){
+            this.createBoats();
+            if(this.state.status === "game has not started"){
+                this.setState({
+                    button:"New game",
+                    status:"Game is on..."
+    
+                })
+                this.upTimer();
+            }else if(this.state.button === "New Game"){
+                this.resetGame();
+            }
+           
         }
             
       chooseItemColor = (number) => {
@@ -83,10 +123,15 @@ export default class Gameboard extends React.Component{
             }else{  
                     this.setState({bombs: this.state.bombs -1})
                     }
-          
+                    board[number] = this.state.isCross = CROSS
+            for(let i =O; i < 3 ;i++){
+                if(this.state.positions[i]=== number){
+                    board[number] = this.state.isCross = CIRCLE
 
-            board[number] = this.state.isCross ? CROSS : CIRCLE
-            this.setState({isCross: !this.state.isCross})
+                }
+            }
+
+            
             if (this.winGame() != "") {
                 this.setState({winner: this.winGame()})
             }
@@ -153,7 +198,7 @@ export default class Gameboard extends React.Component{
                 <View style={styles.flex}>{thirdRow}</View>
                 <View style={styles.flex}>{fourthRow}</View>
                 <View style={styles.flex}>{fifthrow}</View>
-                <Pressable style={styles.button} onPress={()=>this.resetGame()}>
+                <Pressable style={styles.button} onPress={()=>this.start()}>
                     <Text style={styles.buttonText}>{this.state.button}</Text>
                 </Pressable>
                 <View>
